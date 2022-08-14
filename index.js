@@ -45,7 +45,13 @@ function play_sound(key){
 
 function play_audio_click() {
     var key = this.getInnerHTML();
+    buttonAnimation(key);
     play_sound(key);
+}
+
+function play_audio_press(event) {
+    buttonAnimation(event);
+    play_sound(event);
 }
 
 for (let i = 0; i < numberOfButtons; i++) {
@@ -54,7 +60,15 @@ for (let i = 0; i < numberOfButtons; i++) {
     [i].addEventListener("click", play_audio_click);
 }
 
-document.addEventListener("keydown",function(event){
-    var key=event.key;
-    play_sound(key);
+document.addEventListener("keydown",function (event){
+    currentKey=event.key;
+    return play_audio_press(currentKey);
 });
+
+function buttonAnimation(currentKey){
+    let activeButton=document.querySelector("."+currentKey);
+    activeButton.classList.add("pressed");
+    setTimeout(()=>{
+        activeButton.classList.remove("pressed")
+    },100);
+}
