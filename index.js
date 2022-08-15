@@ -1,6 +1,6 @@
 let numberOfButtons = document.querySelectorAll(".drum").length;
 
-function play_sound(key){
+function play_sound(key) {
     switch (key) {
         case "w":
             let tom1 = new Audio("sounds/tom-1.mp3");
@@ -38,7 +38,6 @@ function play_sound(key){
             break;
 
         default:
-            console.log("invalid")
             break;
     }
 }
@@ -60,15 +59,21 @@ for (let i = 0; i < numberOfButtons; i++) {
     [i].addEventListener("click", play_audio_click);
 }
 
-document.addEventListener("keydown",function (event){
-    currentKey=event.key;
+document.addEventListener("keydown", function (event) {
+    currentKey = event.key;
     return play_audio_press(currentKey);
 });
 
-function buttonAnimation(currentKey){
-    let activeButton=document.querySelector("."+currentKey);
-    activeButton.classList.add("pressed");
-    setTimeout(()=>{
-        activeButton.classList.remove("pressed")
-    },100);
+function buttonAnimation(currentKey) {
+    let activeButton = document.querySelector("." + currentKey);
+    let valid = ["w", "a", "s", "d", "j", "k", "l"];
+    if (valid.includes(currentKey)) {
+        activeButton.classList.add("pressed");
+        setTimeout(() => {
+            activeButton.classList.remove("pressed")
+        }, 100);
+    }
+    else {
+        console.log("Invalid Key Press");
+    }
 }
